@@ -1,3 +1,100 @@
+//  Mobile Navigation Toggle
+const mobileMenuToggle = () => {
+  const menuIcon = document.querySelector('ion-icon[name="menu-outline"]');
+  const nav = document.querySelector("nav");
+  const navLinks = document.querySelectorAll(".links");
+
+  if (!menuIcon) return;
+
+  menuIcon.addEventListener("click", () => {
+    nav.classList.toggle("active");
+
+    // Change icon based on state
+    if (nav.classList.contains("active")) {
+      menuIcon.setAttribute("name", "close-outline");
+    } else {
+      menuIcon.setAttribute("name", "menu-outline");
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("active");
+      menuIcon.setAttribute("name", "menu-outline");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      !nav.contains(e.target) &&
+      !menuIcon.contains(e.target) &&
+      nav.classList.contains("active")
+    ) {
+      nav.classList.remove("active");
+      menuIcon.setAttribute("name", "menu-outline");
+    }
+  });
+};
+
+// smooth scroll
+const smoothScroll = function (btn, section) {
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    section.scrollIntoView({ behavior: "smooth" });
+  });
+};
+
+// reveal on scroll
+document.addEventListener("DOMContentLoaded", () => {
+  mobileMenuToggle();
+
+  const allSections = document.querySelectorAll(".section");
+
+  // btns
+  const homeBtn = document.querySelector(".home");
+  const servicesBtn = document.querySelector(".services");
+  const faqBtn = document.querySelector(".faqs");
+  const freeQuoteBtn = document.querySelector(".btn-primary");
+  const services2Btn = document.querySelector(".btn-secondary");
+  const topBtn = document.querySelector(".top");
+  const howWorksBtn = document.querySelector(".howitworks");
+  const pricingBtn = document.querySelector(".pricings");
+
+  // sections
+  const headerSection = document.querySelector(".hero-section");
+  const sectionOne = document.querySelector(".our-services");
+  const sectionTwo = document.querySelector(".how-it-works-section");
+  const sectionThree = document.querySelector(".pricing");
+  const sectionFour = document.querySelector(".faq");
+
+  smoothScroll(homeBtn, headerSection);
+  smoothScroll(servicesBtn, sectionOne);
+  smoothScroll(faqBtn, sectionFour);
+  smoothScroll(freeQuoteBtn, sectionThree);
+  smoothScroll(services2Btn, sectionOne);
+  smoothScroll(howWorksBtn, sectionTwo);
+  smoothScroll(pricingBtn, sectionThree);
+  smoothScroll(topBtn, headerSection);
+
+  const revealSection = function (entries, observer) {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.remove("section--hidden");
+      observer.unobserve(entry.target);
+    });
+  };
+  const sectionObserver = new IntersectionObserver(revealSection, {
+    root: null,
+    threshold: 0.15,
+    rootMargin: "-100px",
+  });
+
+  allSections.forEach((section) => {
+    section.classList.add("section--hidden");
+    sectionObserver.observe(section);
+  });
+});
+
 // how it works section
 
 const optionsDropdown = document.getElementById("options");
@@ -81,6 +178,242 @@ faqQuestions.forEach((question) => {
       answer.style.maxHeight = answer.scrollHeight + "px";
     }
   });
+});
+
+// form
+
+const formLink = document.querySelector(".form-for-more-than-5");
+const overlay = document.querySelector("#overlay");
+
+const validateEmail = function (email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validatePhone = function (phone) {
+  const cleanPhone = phone.replace(/\D/g, "");
+
+  return cleanPhone.length >= 10 && cleanPhone.length <= 15;
+};
+
+const showValidationError = function (input, message) {
+  const existingError = input.parentElement.querySelector(".error-message");
+  if (existingError) {
+    existingError.remove();
+  }
+
+  input.classList.add("input-error");
+
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
+  errorDiv.textContent = message;
+  input.parentElement.appendChild(errorDiv);
+};
+
+const removeValidationError = function (input) {
+  input.classList.remove("input-error");
+  const errorMessage = input.parentElement.querySelector(".error-message");
+  if (errorMessage) {
+    errorMessage.remove();
+  }
+};
+
+// Show spinner
+const showSpinner = function () {
+  const spinnerHTML = `
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <p>Submitting your request...</p>
+    </div>
+  `;
+  overlay.innerHTML = spinnerHTML;
+};
+
+// Show success modal
+const showSuccessModal = function () {
+  const successHTML = `
+    <div class="modal-content success-modal">
+      <div class="success-icon">✓</div>
+      <h2>Request Submitted Successfully!</h2>
+      <p>Thank you for your interest in our solar systems. We'll contact you soon to discuss your requirements.</p>
+      <button class="success-btn">Close</button>
+    </div>
+  `;
+  overlay.innerHTML = successHTML;
+
+  const closeBtn = overlay.querySelector(".success-btn");
+  closeBtn.addEventListener("click", function () {
+    overlay.style.display = "none";
+    document.body.classList.remove("modal-open");
+  });
+};
+
+// Show error modal
+const showErrorModal = function (
+  errorMessage = "There was an error submitting the form. Please try again.",
+) {
+  const errorHTML = `
+    <div class="modal-content error-modal">
+      <div class="error-icon">✕</div>
+      <h2>Submission Failed</h2>
+      <p>${errorMessage}</p>
+      <button class="error-btn">Try Again</button>
+    </div>
+  `;
+  overlay.innerHTML = errorHTML;
+
+  const tryAgainBtn = overlay.querySelector(".error-btn");
+  tryAgainBtn.addEventListener("click", function () {
+    generateFormModal();
+  });
+};
+
+const generateFormModal = function () {
+  const formHTML = `
+    <div class="modal-content">
+      <button class="close-btn">&times;</button>
+      <h2>Request Quote - Solar Systems Above 5kVA</h2>
+      <form id="solarForm" action="https://app.proforms.top/f/pr87e9f503" method="POST" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+        </div>
+        
+        <div class="form-group">
+          <label for="systemSize">Solar System Size</label>
+          <select id="systemSize" name="systemSize" required>
+            <option value="">Select system size</option>
+            <option value="5kva">5 kVA</option>
+            <option value="7.5kva">7.5 kVA</option>
+            <option value="10kva">10 kVA</option>
+            <option value="15kva">15 kVA</option>
+            <option value="20kva">20 kVA</option>
+            <option value="custom">Custom Size</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="additionalInfo">Additional Information (Optional)</label>
+          <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Tell us about your energy needs, location, or any specific requirements..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Submit Request</button>
+      </form>
+    </div>
+  `;
+
+  overlay.innerHTML = formHTML;
+
+  const closeBtn = overlay.querySelector(".close-btn");
+  closeBtn.addEventListener("click", function () {
+    overlay.style.display = "none";
+    document.body.classList.remove("modal-open");
+  });
+
+  const form = overlay.querySelector("#solarForm");
+  const emailInput = overlay.querySelector("#email");
+  const phoneInput = overlay.querySelector("#phone");
+
+  emailInput.addEventListener("blur", function () {
+    if (emailInput.value && !validateEmail(emailInput.value)) {
+      showValidationError(emailInput, "Please enter a valid email address");
+    } else {
+      removeValidationError(emailInput);
+    }
+  });
+
+  emailInput.addEventListener("input", function () {
+    if (emailInput.classList.contains("input-error")) {
+      removeValidationError(emailInput);
+    }
+  });
+
+  phoneInput.addEventListener("blur", function () {
+    if (phoneInput.value && !validatePhone(phoneInput.value)) {
+      showValidationError(
+        phoneInput,
+        "Please enter a valid phone number (10-15 digits)",
+      );
+    } else {
+      removeValidationError(phoneInput);
+    }
+  });
+
+  phoneInput.addEventListener("input", function () {
+    if (phoneInput.classList.contains("input-error")) {
+      removeValidationError(phoneInput);
+    }
+  });
+
+  // Form submission
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let isValid = true;
+
+    if (!validateEmail(emailInput.value)) {
+      showValidationError(emailInput, "Please enter a valid email address");
+      isValid = false;
+    }
+
+    if (!validatePhone(phoneInput.value)) {
+      showValidationError(
+        phoneInput,
+        "Please enter a valid phone number (10-15 digits)",
+      );
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    // Show spinner
+    showSpinner();
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          showSuccessModal();
+        } else {
+          showErrorModal();
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        showErrorModal();
+      });
+  });
+};
+
+formLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  generateFormModal();
+  overlay.style.display = "block";
+  document.body.classList.add("modal-open");
+});
+
+// Close modal when clicking outside
+overlay.addEventListener("click", function (e) {
+  if (e.target === overlay) {
+    overlay.style.display = "none";
+    document.body.classList.remove("modal-open");
+  }
 });
 
 // footer

@@ -20,7 +20,6 @@
       sizes="16x16"
       href="img/favicon_io/favicon-16x16.png"
     />
-    <link rel="manifest" href="/site.webmanifest" />
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -45,6 +44,7 @@
     </title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="query.css" />
   </head>
   <body>
     <header class="hero-section">
@@ -56,14 +56,16 @@
 
           <nav>
             <ul class="nav-links">
-              <li class="nav-link"><a class="links" href="#">HOME</a></li>
+              <li class="nav-link"><a class="links home" href="#">HOME</a></li>
               <li class="nav-link">
-                <a class="links" href="#services">SERVICES</a>
+                <a class="links services" href="#services">SERVICES</a>
               </li>
-              <li class="nav-link"><a class="links" href="#">LOCATE US</a></li>
+              <li class="nav-link">
+                <a class="links faqs" href="#faqs">FAQs</a>
+              </li>
             </ul>
           </nav>
-          <ion-icon name="moon-outline"></ion-icon>
+          <ion-icon name="moon-outline" class="hidden"></ion-icon>
           <ion-icon name="menu-outline" class="hidden"></ion-icon>
         </div>
       </div>
@@ -76,8 +78,8 @@
           & smart wiring.
         </p>
         <div class="hero-cta">
-          <a href="#" class="btn-primary">Get a Free Quote</a>
-          <a href="#" class="btn-secondary">Our Services</a>
+          <a href="#pricing" class="btn-primary">Get a Free Quote</a>
+          <a href="#services" class="btn-secondary">Our Services</a>
         </div>
 
         <p class="motto">
@@ -116,8 +118,8 @@
       </div>
     </header>
     <main>
-      <section class="our-services" id="services">
-        <h2 class="section-title">Our Solution At OLUPERFECT TECHNOLOGY</h2>
+      <section class="our-services section" id="services">
+        <h2 class="section-title">Our Services At OLUPERFECT TECHNOLOGY</h2>
         <p class="section-description">
           We provide tailored solutions for every need
         </p>
@@ -231,7 +233,7 @@
           </div>
         </div>
       </section>
-      <section class="how-it-works-section">
+      <section class="how-it-works-section section" id="howitworks">
         <div class="how-it-works">
           <p class="how-it-works-title">HOW IT WORKS</p>
           <p class="how-it-works-description">
@@ -285,7 +287,7 @@
         </div>
       </section>
 
-      <section class="pricing">
+      <section class="pricing section" id="pricing">
         <p class="pricing-title">Affordable Solar Plans</p>
         <p class="pricing-description">
           Choose the perfect plan for your needs and budget
@@ -342,7 +344,12 @@
               <p class="price-amount">---</p>
               <p class="price-label">Contact for Quote</p>
             </div>
-            <a href="#" class="plan-btn">Get Quote</a>
+            <a
+              href="https://wa.me/2349039424681?text=Hey%20I%20am%20from%20your%20website%2C%20I%20want%20to%20know%20about%20the%20_____%20plan"
+              target="_blank"
+              class="plan-btn"
+              >Get Quote</a
+            >
           </div>
 
           <!-- 3KVA Standard Plan -->
@@ -409,7 +416,12 @@
               <p class="price-amount">---</p>
               <p class="price-label">Including Delivery & Installation</p>
             </div>
-            <a href="#" class="plan-btn">Get Quote</a>
+            <a
+              href="https://wa.me/2349039424681?text=Hey%20I%20am%20from%20your%20website%2C%20I%20want%20to%20know%20about%20the%20_____%20plan"
+              target="_blank"
+              class="plan-btn"
+              >Get Quote</a
+            >
           </div>
 
           <!-- 4KVA Premium Plan -->
@@ -477,7 +489,12 @@
               <p class="price-amount">---</p>
               <p class="price-label">Including Delivery & Installation</p>
             </div>
-            <a href="#" class="plan-btn">Get Quote</a>
+            <a
+              href="https://wa.me/2349039424681?text=Hey%20I%20am%20from%20your%20website%2C%20I%20want%20to%20know%20about%20the%20_____%20plan"
+              target="_blank"
+              class="plan-btn"
+              >Get Quote</a
+            >
           </div>
 
           <!-- 5KVA Enterprise Plan -->
@@ -548,7 +565,11 @@
               <p class="price-amount">---</p>
               <p class="price-label">Including Delivery & Installation</p>
             </div>
-            <a href="#" class="plan-btn plan-btn-enterprise">Get Quote</a>
+            <a
+              href="https://wa.me/2349039424681?text=Hey%20I%20am%20from%20your%20website%2C%20I%20want%20to%20know%20about%20the%20_____%20plan"
+              class="plan-btn plan-btn-enterprise"
+              >Get Quote</a
+            >
           </div>
         </div>
 
@@ -558,7 +579,7 @@
         </p>
       </section>
 
-      <section class="faq">
+      <section class="faq section" id="faqs">
         <h1>Frequently Asked Questions</h1>
 
         <div class="faq-item">
@@ -621,23 +642,23 @@
           <h3>Pages</h3>
           <ul>
             <li>
-              <a href="#"
+              <a class="top" href="#"
                 ><ion-icon name="arrow-up-circle-outline"></ion-icon> Back To
                 Top</a
               >
             </li>
             <li>
-              <a href="#"
+              <a class="services" href="#services"
                 ><ion-icon name="bulb-outline"></ion-icon> Our Solutions</a
               >
             </li>
             <li>
-              <a href="#"
+              <a class="howitworks" href="#howitworks"
                 ><ion-icon name="construct-outline"></ion-icon> How It Works</a
               >
             </li>
             <li>
-              <a href="#"
+              <a class="pricings" href="#pricing"
                 ><ion-icon name="pricetag-outline"></ion-icon> Pricing</a
               >
             </li>
@@ -673,6 +694,11 @@
               <ion-icon name="call-outline"></ion-icon>
               <a href="tel:+2349039424681">+234 903 942 4681</a>
             </li>
+
+            <li>
+              <ion-icon name="location-outline"></ion-icon> No 12 Ajishinle
+              Quarters, Akure, Ondo State, Nigeria
+            </li>
           </ul>
         </div>
       </div>
@@ -681,5 +707,6 @@
         &copy; <span id="year"></span> dev'ed by JUDEXIFY . All rights reserved.
       </div>
     </footer>
+    <div id="overlay"></div>
   </body>
 </html>

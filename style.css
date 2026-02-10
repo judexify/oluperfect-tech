@@ -10,71 +10,32 @@ picture {
 }
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
-
-/* Primary Brand Colors
-
-Brand Yellow: #F4D03F (from logo)
-Deep Yellow: #F1C40F (richer accent)
-White: #FFFFFF (clean, solar-appropriate)
-Off-White: #F8F9FA (softer backgrounds)
-
-Section Backgrounds
-
-Hero Section: #FFFFFF (clean, bright start)
-Features/Services: #FFFBF0 (warm, subtle yellow tint)
-About/Why Choose Us: #F8F9FA (light gray, professional)
-Testimonials: #FFF9E6 (soft yellow warmth)
-Pricing/Plans: #FFFFFF (clarity and transparency)
-Footer: #2C3E50 (dark blue-gray, grounding)
-
-Text Colors
-
-Primary Headings: #2C3E50 (dark blue-gray, strong contrast)
-Secondary Headings: #34495E (medium blue-gray)
-Body Text: #5A6C7D (readable gray-blue)
-Light Text (on dark backgrounds): #FFFFFF
-Muted Text (captions, footnotes): #95A5A6
-
-CTA Buttons
-Primary CTA (Get Quote, Contact Us):
-
-Background: #F4D03F (brand yellow)
-Hover: #E8B923 (darker yellow)
-Text: #2C3E50 (dark, high contrast)
-Border: 2px solid #E8B923
-
-Secondary CTA (Learn More, View Projects):
-
-Background: Transparent
-Border: 2px solid #F4D03F
-Text: #F4D03F
-Hover Background: #F4D03F
-Hover Text: #2C3E50
-
-Urgent/Action CTA (Limited Offer):
-
-Background: #E67E22 (energetic orange)
-Hover: #D35400 (deeper orange)
-Text: #FFFFFF
-
-Accent Colors
-
-Success/Energy: #27AE60 (green - renewable energy)
-Trust/Sky: #3498DB (blue - solar/sky association)
-Warning/Highlight: #E67E22 (orange)
-Dark Accent: #34495E (professional depth)
-
-Hover States
-
-Links: #F1C40F (hover from #F4D03F)
-Cards: Add box-shadow: 0 8px 24px rgba(244, 208, 63, 0.15)
-Images: opacity: 0.9 with subtle scale transform: scale(1.02)
-Icons: color: #F4D03F from #5A6C7D */
 
 /* utility */
 .hidden {
   display: none;
+}
+
+.section--hidden {
+  opacity: 0;
+  transform: translateY(8rem);
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 /* start here */
@@ -118,7 +79,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  z-index: 100;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -137,7 +98,7 @@ body {
 }
 .nav-links {
   display: flex;
-  gap: 3.6rem;
+  gap: 8.4rem;
   align-items: center;
 }
 .nav-link {
@@ -1011,7 +972,6 @@ label {
   background-color: #34495e;
   color: #ecf0f1;
   padding: 4rem 2rem;
-  font-family: "Poppins", sans-serif;
 }
 
 .footer-top {
@@ -1044,12 +1004,12 @@ label {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  font-size: 1.5rem;
 }
 
 .footer-top a {
   color: #ecf0f1;
   text-decoration: none;
-  font-size: 1.5rem;
   transition: color 0.3s ease;
 }
 
@@ -1072,4 +1032,215 @@ label {
   color: #bdc3c7;
   border-top: 1px solid #2c3e50;
   padding-top: 1.5rem;
+}
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.modal-content {
+  background: white;
+  max-width: 40rem;
+  margin: 3.125rem auto;
+  padding: 1.875rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.9375rem;
+  right: 0.9375rem;
+  background: none;
+  border: none;
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-content h2 {
+  margin-bottom: 1.25rem;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3125rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 2.5px;
+  font-size: 1.2rem;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #e8b923;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.submit-btn:hover {
+  background: #d1a620;
+}
+
+/* Spinner  */
+.spinner-container {
+  background: white;
+  max-width: 25rem;
+  margin: 6.25rem auto;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.spinner {
+  border: 0.25rem solid #f3f3f3;
+  border-top: 0.25rem solid #e8b923;
+  border-radius: 50%;
+  height: 3.125rem;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-container p {
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+/* Success modal styles */
+.success-modal {
+  text-align: center;
+}
+
+.success-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: #4caf50;
+  color: white;
+  font-size: 3.125rem;
+  line-height: 5rem;
+  margin: 0 auto 1.25rem;
+}
+
+.success-modal h2 {
+  color: #4caf50;
+  margin-bottom: 0.9375rem;
+}
+
+.success-modal p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5625rem;
+}
+
+.success-btn {
+  padding: 0.75rem 2.5rem;
+  background: #e8b923;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.success-btn:hover {
+  background: #d1a620;
+}
+
+/* Error modal styles */
+.error-modal {
+  text-align: center;
+}
+
+.error-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: #f44336;
+  color: white;
+  font-size: 3.125rem;
+  line-height: 5rem;
+  margin: 0 auto 1.25rem;
+}
+
+.error-modal h2 {
+  color: #f44336;
+  margin-bottom: 0.9375rem;
+}
+
+.error-modal p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5625rem;
+}
+
+.error-btn {
+  padding: 0.75rem 2.5rem;
+  background: #e8b923;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error-btn:hover {
+  background: #d1a620;
+}
+
+/* Validation error styles */
+.input-error {
+  border-color: #f44336 !important;
+  background-color: #fff5f5;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.75rem;
+  margin-top: 0.3125rem;
+  display: block;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e8b923;
+}
+
+.form-group input.input-error:focus {
+  border-color: #f44336;
 }
