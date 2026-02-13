@@ -225,7 +225,6 @@ const validateEmail = function (email) {
 
 const validatePhone = function (phone) {
   const cleanPhone = phone.replace(/\D/g, "");
-
   return cleanPhone.length >= 10 && cleanPhone.length <= 15;
 };
 
